@@ -48,6 +48,7 @@ Required:
         - ip_restriction_default_action (optional)
         - load_balancing_mode (optional)
         - managed_pipeline_mode (optional)
+        - minimum_tls_cipher_suite (optional)
         - minimum_tls_version (optional)
         - pre_warmed_instance_count (optional)
         - remote_debugging_enabled (optional)
@@ -308,6 +309,7 @@ EOT
       ip_restriction_default_action    = optional(string) # Default: "Allow"
       load_balancing_mode              = optional(string) # Default: "LeastRequests"
       managed_pipeline_mode            = optional(string) # Default: "Integrated"
+      minimum_tls_cipher_suite         = optional(string)
       minimum_tls_version              = optional(string) # Default: "1.2"
       pre_warmed_instance_count        = optional(number)
       remote_debugging_enabled         = optional(bool) # Default: false

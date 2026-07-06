@@ -91,6 +91,7 @@ resource "azurerm_windows_function_app_slot" "windows_function_app_slots" {
     ip_restriction_default_action    = each.value.site_config.ip_restriction_default_action
     load_balancing_mode              = each.value.site_config.load_balancing_mode
     managed_pipeline_mode            = each.value.site_config.managed_pipeline_mode
+    minimum_tls_cipher_suite         = each.value.site_config.minimum_tls_cipher_suite
     minimum_tls_version              = each.value.site_config.minimum_tls_version
     pre_warmed_instance_count        = each.value.site_config.pre_warmed_instance_count
     remote_debugging_enabled         = each.value.site_config.remote_debugging_enabled
