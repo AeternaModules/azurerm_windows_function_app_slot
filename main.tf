@@ -1,3 +1,8 @@
+data "azurerm_key_vault_secret" "storage_account_access_key" {
+  for_each     = { for k, v in var.windows_function_app_slots : k => v if v.storage_account_access_key_key_vault_id != null && v.storage_account_access_key_key_vault_secret_name != null }
+  name         = each.value.storage_account_access_key_key_vault_secret_name
+  key_vault_id = each.value.storage_account_access_key_key_vault_id
+}
 resource "azurerm_windows_function_app_slot" "windows_function_app_slots" {
   for_each = var.windows_function_app_slots
 
@@ -9,7 +14,7 @@ resource "azurerm_windows_function_app_slot" "windows_function_app_slots" {
   storage_uses_managed_identity                  = each.value.storage_uses_managed_identity
   storage_key_vault_secret_id                    = each.value.storage_key_vault_secret_id
   storage_account_name                           = each.value.storage_account_name
-  storage_account_access_key                     = each.value.storage_account_access_key
+  storage_account_access_key                     = each.value.storage_account_access_key != null ? each.value.storage_account_access_key : try(data.azurerm_key_vault_secret.storage_account_access_key[each.key].value, null)
   service_plan_id                                = each.value.service_plan_id
   public_network_access_enabled                  = each.value.public_network_access_enabled
   key_vault_reference_identity_id                = each.value.key_vault_reference_identity_id
